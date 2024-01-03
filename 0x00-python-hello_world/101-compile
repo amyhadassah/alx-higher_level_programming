@@ -1,4 +1,6 @@
 #!/bin/bash
 echo "Compiling $PYFILE ..."
-python3 -m compileall -b $PYFILE
-mv ${PYFILE}c $(dirname $PYFILE)/$(basename $PYFILE .py)c
+python3 -m py_compile $PYFILE
+output_filename=$(basename $PYFILE .py)
+mv __pycache__/${output_filename}.cpython-38.pyc ${output_filename}.pyc
+rmdir __pycache__
