@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "Compiling $PYFILE ..."
+python3 -m compileall -b $PYFILE
+mv ${PYFILE}c $(dirname $PYFILE)/$(basename $PYFILE .py)c
