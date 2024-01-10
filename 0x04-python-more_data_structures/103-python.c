@@ -3,10 +3,8 @@
 #include <bytesobject.h>
 
 void print_python_bytes(PyObject *p) {
-	PyBytesObject *bytes;
 	char *string;
-	long size;
-	int i;
+	Py_ssize_t size, i;
 
 	printf("[.] bytes object info\n");
 
@@ -15,19 +13,18 @@ void print_python_bytes(PyObject *p) {
 		return;
 	}
 
-	bytes = (PyBytesObject *)p;
-	size = ((PyVarObject *)p)->ob_size;  // Directly accessing ob_size from PyVarObject
+	size = ((PyVarObject *)p)->ob_size;
+	string = ((PyBytesObject *)p)->ob_sval;
 
-	int print_size = (size < 10) ? size : 10;
-
-	string = bytes->ob_sval;
-
-	printf("  size: %ld\n", size);
+	printf("  size: %zd\n", size);
 	printf("  trying string: %s\n", string);
-	printf("  first %d bytes:", print_size + 1);
 
-	for (i = 0; i <= print_size && string[i] != '\0'; i++) {
+	printf("  first %zd bytes:", size < 10 ? size + 1 : 10);
+	for (i = 0; i < size && i < 10; i++) {
 		printf(" %02x", (unsigned char)string[i]);
+	}
+	if (size > 10) {
+		printf(" ...");
 	}
 	printf("\n");
 }
