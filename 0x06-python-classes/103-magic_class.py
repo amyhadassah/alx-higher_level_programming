@@ -1,21 +1,20 @@
 #!/usr/bin/python3
 import math
 
-
 class MagicClass:
-    """A class that defines a circle with a given radius."""
+    """A class that defines a circle with a private radius."""
 
     def __init__(self, radius=0):
-        """Initialize the MagicClass with a radius.
+        """Initialize a MagicClass.
 
         Args:
-            radius (int/float): The radius of the circle.
+            radius (int/float): The radius of the circle. Defaults to 0.
 
         Raises:
-            TypeError: If radius is not a number (int or float).
+            TypeError: If radius is not a number.
         """
         self.__radius = 0
-        if type(radius) is not int and type(radius) is not float:
+        if type(radius) not in [int, float]:
             raise TypeError("radius must be a number")
         self.__radius = radius
 
